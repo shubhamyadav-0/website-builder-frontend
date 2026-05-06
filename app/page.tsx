@@ -1,11 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const [companyName, setCompanyName] = useState("");
   const [color, setColor] = useState("#000000");
   const [logoUrl, setLogoUrl] = useState("");
+
+  useEffect(() => {
+    const fetchConfig = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/get-config");
+        const data = await response.json();
+
+        if (data) {
+          setCompanyName(data.company_name || "");
+          setColor(data.theme_color || "#000000");
+          setLogoUrl(data.logo_url || "");
+        }
+      } catch (error) {
+        console.error("Error fetching config:", error);
+      }
+    };
+
+    fetchConfig();
+  }, []);
 
   //  NEW FUNCTION (API CALL)
   const handleSave = async () => {
@@ -34,7 +53,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
-      
       {/* LEFT SIDE - FORM */}
       <div className="w-full md:w-1/2 p-6 bg-gray-100">
         <h2 className="text-2xl font-bold mb-4">Customize Website</h2>
@@ -74,7 +92,6 @@ export default function Home() {
       {/* RIGHT SIDE - PREVIEW */}
       <div className="w-full md:w-1/2 p-6">
         <div className="border rounded shadow p-6">
-          
           <div
             className="flex items-center gap-4 p-4"
             style={{ backgroundColor: color }}
