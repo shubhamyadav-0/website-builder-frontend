@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from "react";
 
+import PreviewCard from "../components/PreviewCard";
+import { saveConfig, getConfig } from "../services/api";
+
 export default function Home() {
   const [companyName, setCompanyName] = useState("");
   const [color, setColor] = useState("#000000");
@@ -13,8 +16,7 @@ export default function Home() {
   useEffect(() => {
     const fetchConfig = async () => {
       try {
-        const response = await fetch("http://localhost:5000/get-config");
-        const data = await response.json();
+        const data = await getConfig();
 
         if (data) {
           setCompanyName(data.company_name || "");
@@ -32,31 +34,24 @@ export default function Home() {
     fetchConfig();
   }, []);
 
-  //  NEW FUNCTION (API CALL)
   const handleSave = async () => {
     try {
-      const response = await fetch("http://localhost:5000/save-config", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          companyName,
-          color,
-          logoUrl,
-          heroTitle,
-          heroDescription,
-          buttonText,
-        }),
+      const data = await saveConfig({
+        companyName,
+        color,
+        logoUrl,
+        heroTitle,
+        heroDescription,
+        buttonText,
       });
 
-      const data = await response.json();
       console.log("Saved:", data);
 
-      alert("Data saved successfully ");
+      alert("Data saved successfully");
     } catch (error) {
       console.error("Error:", error);
-      alert("Error saving data ");
+
+      alert("Error saving data");
     }
   };
 
@@ -64,7 +59,9 @@ export default function Home() {
     <div className="min-h-screen flex flex-col md:flex-row">
       {/* LEFT SIDE - FORM */}
       <div className="w-full md:w-1/2 p-6 bg-gray-100">
-        <h2 className="text-2xl font-bold mb-4">Customize Website</h2>
+        <h2 className="text-2xl font-bold mb-4">
+          Customize Website
+        </h2>
 
         <input
           type="text"
@@ -92,27 +89,26 @@ export default function Home() {
         <input
           type="text"
           placeholder="Hero Title"
+          className="w-full p-2 mb-4 border rounded"
           value={heroTitle}
           onChange={(e) => setHeroTitle(e.target.value)}
-          className="border p-2 w-full"
         />
 
         <textarea
           placeholder="Hero Description"
+          className="w-full p-2 mb-4 border rounded"
           value={heroDescription}
           onChange={(e) => setHeroDescription(e.target.value)}
-          className="border p-2 w-full"
         />
 
         <input
           type="text"
           placeholder="Button Text"
+          className="w-full p-2 mb-4 border rounded"
           value={buttonText}
           onChange={(e) => setButtonText(e.target.value)}
-          className="border p-2 w-full"
         />
 
-        {/*  SAVE BUTTON */}
         <button
           onClick={handleSave}
           className="bg-blue-500 text-white px-4 py-2 rounded"
@@ -123,34 +119,14 @@ export default function Home() {
 
       {/* RIGHT SIDE - PREVIEW */}
       <div className="w-full md:w-1/2 p-6">
-        <div className="border rounded shadow p-6">
-          <div
-            className="flex items-center gap-4 p-4"
-            style={{ backgroundColor: color }}
-          >
-            {logoUrl && <img src={logoUrl} alt="logo" className="h-10" />}
-            <h1 className="text-white text-xl font-bold">
-              {companyName || "Your Company"}
-            </h1>
-          </div>
-
-          <div className="p-4">
-            <h1 className="text-3xl font-bold mt-4">
-              {heroTitle || "Welcome to our website"}
-            </h1>
-
-            <p className="mt-2 text-gray-700">
-              {heroDescription || "This is your dynamic website preview 🚀"}
-            </p>
-
-            <button
-              className="mt-4 px-4 py-2 text-white rounded"
-              style={{ backgroundColor: color }}
-            >
-              {buttonText || "Get Started"}
-            </button>
-          </div>
-        </div>
+        <PreviewCard
+          companyName={companyName}
+          color={color}
+          logoUrl={logoUrl}
+          heroTitle={heroTitle}
+          heroDescription={heroDescription}
+          buttonText={buttonText}
+        />
       </div>
     </div>
   );
