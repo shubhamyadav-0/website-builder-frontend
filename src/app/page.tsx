@@ -6,6 +6,9 @@ export default function Home() {
   const [companyName, setCompanyName] = useState("");
   const [color, setColor] = useState("#000000");
   const [logoUrl, setLogoUrl] = useState("");
+  const [heroTitle, setHeroTitle] = useState("");
+  const [heroDescription, setHeroDescription] = useState("");
+  const [buttonText, setButtonText] = useState("");
 
   useEffect(() => {
     const fetchConfig = async () => {
@@ -17,6 +20,9 @@ export default function Home() {
           setCompanyName(data.company_name || "");
           setColor(data.theme_color || "#000000");
           setLogoUrl(data.logo_url || "");
+          setHeroTitle(data.hero_title || "");
+          setHeroDescription(data.hero_description || "");
+          setButtonText(data.button_text || "");
         }
       } catch (error) {
         console.error("Error fetching config:", error);
@@ -38,6 +44,9 @@ export default function Home() {
           companyName,
           color,
           logoUrl,
+          heroTitle,
+          heroDescription,
+          buttonText,
         }),
       });
 
@@ -80,6 +89,29 @@ export default function Home() {
           onChange={(e) => setLogoUrl(e.target.value)}
         />
 
+        <input
+          type="text"
+          placeholder="Hero Title"
+          value={heroTitle}
+          onChange={(e) => setHeroTitle(e.target.value)}
+          className="border p-2 w-full"
+        />
+
+        <textarea
+          placeholder="Hero Description"
+          value={heroDescription}
+          onChange={(e) => setHeroDescription(e.target.value)}
+          className="border p-2 w-full"
+        />
+
+        <input
+          type="text"
+          placeholder="Button Text"
+          value={buttonText}
+          onChange={(e) => setButtonText(e.target.value)}
+          className="border p-2 w-full"
+        />
+
         {/*  SAVE BUTTON */}
         <button
           onClick={handleSave}
@@ -103,7 +135,20 @@ export default function Home() {
           </div>
 
           <div className="p-4">
-            <p>This is your dynamic website preview 🚀</p>
+            <h1 className="text-3xl font-bold mt-4">
+              {heroTitle || "Welcome to our website"}
+            </h1>
+
+            <p className="mt-2 text-gray-700">
+              {heroDescription || "This is your dynamic website preview 🚀"}
+            </p>
+
+            <button
+              className="mt-4 px-4 py-2 text-white rounded"
+              style={{ backgroundColor: color }}
+            >
+              {buttonText || "Get Started"}
+            </button>
           </div>
         </div>
       </div>
