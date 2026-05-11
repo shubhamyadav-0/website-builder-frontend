@@ -12,6 +12,7 @@ export default function Home() {
   const [heroTitle, setHeroTitle] = useState("");
   const [heroDescription, setHeroDescription] = useState("");
   const [buttonText, setButtonText] = useState("");
+  const [template, setTemplate] = useState("startup");
 
   useEffect(() => {
     const fetchConfig = async () => {
@@ -25,6 +26,7 @@ export default function Home() {
           setHeroTitle(data.hero_title || "");
           setHeroDescription(data.hero_description || "");
           setButtonText(data.button_text || "");
+          setTemplate(data.template || "startup");
         }
       } catch (error) {
         console.error("Error fetching config:", error);
@@ -43,6 +45,7 @@ export default function Home() {
         heroTitle,
         heroDescription,
         buttonText,
+        template,
       });
 
       console.log("Saved:", data);
@@ -72,6 +75,8 @@ export default function Home() {
         buttonText={buttonText}
         setButtonText={setButtonText}
         handleSave={handleSave}
+        template={template}
+        setTemplate={setTemplate}
       />
 
       {/* RIGHT SIDE - PREVIEW */}
@@ -83,6 +88,7 @@ export default function Home() {
           heroTitle={heroTitle}
           heroDescription={heroDescription}
           buttonText={buttonText}
+          template={template}
         />
       </div>
     </div>

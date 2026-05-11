@@ -17,6 +17,9 @@ type ConfigFormProps = {
   buttonText: string;
   setButtonText: (value: string) => void;
 
+  template: string;
+  setTemplate: (value: string) => void;
+
   handleSave: () => void;
 };
 
@@ -33,6 +36,8 @@ export default function ConfigForm({
   setHeroDescription,
   buttonText,
   setButtonText,
+  template,
+  setTemplate,
   handleSave,
 }: ConfigFormProps) {
   return (
@@ -86,6 +91,16 @@ export default function ConfigForm({
         value={buttonText}
         onChange={(e) => setButtonText(e.target.value)}
       />
+
+      <select
+        value={template}
+        onChange={(e) => setTemplate(e.target.value)}
+        className="w-full p-2 mb-4 border rounded"
+      >
+        <option value="startup">Startup</option>
+        <option value="gym">Gym</option>
+        <option value="portfolio">Portfolio</option>
+      </select>
 
       <button
         onClick={handleSave}
