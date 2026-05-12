@@ -12,6 +12,8 @@ type PreviewProps = {
   template: string;
 
   setHeroTitle: (value: string) => void;
+  setHeroDescription: (value: string) => void;
+  setButtonText: (value: string) => void;
 };
 
 export default function PreviewCard({
@@ -23,19 +25,23 @@ export default function PreviewCard({
   buttonText,
   template,
   setHeroTitle,
+  setHeroDescription,
+  setButtonText,
 }: PreviewProps) {
 
   if (template === "startup") {
     return (
-      <StartupTemplate
-        companyName={companyName}
-        color={color}
-        heroTitle={heroTitle}
-        heroDescription={heroDescription}
-        buttonText={buttonText}
-        logoUrl={logoUrl}
-        setHeroTitle={setHeroTitle}
-      />
+  <StartupTemplate
+  companyName={companyName}
+  color={color}
+  heroTitle={heroTitle}
+  heroDescription={heroDescription}
+  buttonText={buttonText}
+  logoUrl={logoUrl}
+  setHeroTitle={setHeroTitle}
+  setHeroDescription={setHeroDescription}
+  setButtonText={setButtonText}
+/>
     );
   }
 

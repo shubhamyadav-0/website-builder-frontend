@@ -36,6 +36,42 @@ export default function Home() {
     fetchConfig();
   }, []);
 
+  useEffect(() => {
+  localStorage.setItem(
+    "websiteDraft",
+    JSON.stringify({
+      companyName,
+      heroTitle,
+      heroDescription,
+      buttonText,
+      color,
+      template,
+    })
+  );
+}, [
+  companyName,
+  heroTitle,
+  heroDescription,
+  buttonText,
+  color,
+  template,
+]);
+
+useEffect(() => {
+  const savedDraft = localStorage.getItem("websiteDraft");
+
+  if (savedDraft) {
+    const draft = JSON.parse(savedDraft);
+
+    setCompanyName(draft.companyName || "");
+    setHeroTitle(draft.heroTitle || "");
+    setHeroDescription(draft.heroDescription || "");
+    setButtonText(draft.buttonText || "");
+    setColor(draft.color || "#000000");
+    setTemplate(draft.template || "startup");
+  }
+}, []);
+
   const handleSave = async () => {
     try {
       const data = await saveConfig({
@@ -89,6 +125,9 @@ export default function Home() {
           heroDescription={heroDescription}
           buttonText={buttonText}
           template={template}
+          setHeroTitle={setHeroTitle}
+          setHeroDescription={setHeroDescription}
+          setButtonText={setButtonText}
         />
       </div>
     </div>
