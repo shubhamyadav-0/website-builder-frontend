@@ -1,3 +1,5 @@
+import Navbar from "../Navbar";
+
 type Props = {
   companyName: string;
   color: string;
@@ -9,6 +11,7 @@ type Props = {
   setHeroTitle: (value: string) => void;
   setHeroDescription: (value: string) => void;
   setButtonText: (value: string) => void;
+  setCompanyName: (value: string) => void;
 };
 
 export default function StartupTemplate({
@@ -21,9 +24,12 @@ export default function StartupTemplate({
   setHeroTitle,
   setHeroDescription,
   setButtonText,
+  setCompanyName,
 }: Props) {
   return (
     <div className="border rounded-xl shadow-lg overflow-hidden">
+      <Navbar companyName={companyName} setCompanyName={setCompanyName} />
+
       <div className="p-10 text-white" style={{ backgroundColor: color }}>
         {logoUrl && (
           <img
@@ -33,7 +39,12 @@ export default function StartupTemplate({
           />
         )}
 
-        <h1 className="text-5xl font-bold">{companyName}</h1>
+        <input
+          type="text"
+          value={companyName}
+          onChange={(e) => setCompanyName(e.target.value)}
+          className="text-5xl font-bold bg-transparent outline-none w-full"
+        />
 
         <input
           type="text"

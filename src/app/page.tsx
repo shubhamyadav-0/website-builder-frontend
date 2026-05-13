@@ -128,6 +128,7 @@ useEffect(() => {
           setHeroTitle={setHeroTitle}
           setHeroDescription={setHeroDescription}
           setButtonText={setButtonText}
+          setCompanyName={setCompanyName}
         />
       </div>
     </div>

@@ -14,6 +14,7 @@ type PreviewProps = {
   setHeroTitle: (value: string) => void;
   setHeroDescription: (value: string) => void;
   setButtonText: (value: string) => void;
+  setCompanyName: (value: string) => void;
 };
 
 export default function PreviewCard({
@@ -27,6 +28,7 @@ export default function PreviewCard({
   setHeroTitle,
   setHeroDescription,
   setButtonText,
+  setCompanyName,
 }: PreviewProps) {
 
   if (template === "startup") {
@@ -41,6 +43,7 @@ export default function PreviewCard({
   setHeroTitle={setHeroTitle}
   setHeroDescription={setHeroDescription}
   setButtonText={setButtonText}
+  setCompanyName={setCompanyName}
 />
     );
   }
@@ -55,6 +58,7 @@ export default function PreviewCard({
         buttonText={buttonText}
         logoUrl={logoUrl}
         setHeroTitle={setHeroTitle}
+        setCompanyName={setCompanyName}
       />
     );
   }
@@ -69,6 +73,7 @@ export default function PreviewCard({
         buttonText={buttonText}
         logoUrl={logoUrl}
         setHeroTitle={setHeroTitle}
+        setCompanyName={setCompanyName}
       />
     );
   }

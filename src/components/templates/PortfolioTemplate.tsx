@@ -1,3 +1,5 @@
+import Navbar from "../Navbar";
+
 type Props = {
   companyName: string;
   color: string;
@@ -7,6 +9,7 @@ type Props = {
   buttonText: string;
 
   setHeroTitle: (value: string) => void;
+  setCompanyName: (value: string) => void;
 };
 
 export default function PortfolioTemplate({
@@ -17,9 +20,14 @@ export default function PortfolioTemplate({
   heroDescription,
   buttonText,
   setHeroTitle,
+  setCompanyName,
 }: Props) {
   return (
     <div className="border rounded-xl p-10 bg-white shadow-lg">
+    <Navbar
+  companyName={companyName}
+  setCompanyName={setCompanyName}
+/>
 
       {logoUrl && (
         <img
@@ -29,18 +37,11 @@ export default function PortfolioTemplate({
         />
       )}
 
-      <h1
-        className="text-5xl font-light"
-        style={{ color }}
-      >
+      <h1 className="text-5xl font-light" style={{ color }}>
         {companyName}
       </h1>
 
-      <div
-        className="mt-8 border-l-4 pl-6"
-        style={{ borderColor: color }}
-      >
-
+      <div className="mt-8 border-l-4 pl-6" style={{ borderColor: color }}>
         <input
           type="text"
           value={heroTitle}
@@ -48,9 +49,7 @@ export default function PortfolioTemplate({
           className="text-3xl font-semibold bg-transparent outline-none w-full"
         />
 
-        <p className="mt-4 text-gray-600">
-          {heroDescription}
-        </p>
+        <p className="mt-4 text-gray-600">{heroDescription}</p>
       </div>
 
       <button

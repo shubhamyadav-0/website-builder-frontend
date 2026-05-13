@@ -1,3 +1,5 @@
+import Navbar from "../Navbar";
+
 type Props = {
   companyName: string;
   color: string;
@@ -7,6 +9,7 @@ type Props = {
   buttonText: string;
 
   setHeroTitle: (value: string) => void;
+  setCompanyName: (value: string) => void;
 };
 
 export default function GymTemplate({
@@ -17,12 +20,14 @@ export default function GymTemplate({
   heroDescription,
   buttonText,
   setHeroTitle,
+  setCompanyName,
 }: Props) {
   return (
     <div
       className="rounded-xl overflow-hidden shadow-xl text-white p-10"
       style={{ backgroundColor: color }}
     >
+      <Navbar companyName={companyName} setCompanyName={setCompanyName} />
 
       {logoUrl && (
         <img
@@ -32,13 +37,9 @@ export default function GymTemplate({
         />
       )}
 
-      <h1 className="text-5xl font-extrabold uppercase">
-        {companyName}
-      </h1>
+      <h1 className="text-5xl font-extrabold uppercase">{companyName}</h1>
 
-      <p className="mt-2 text-lg tracking-widest">
-        FITNESS • STRENGTH • POWER
-      </p>
+      <p className="mt-2 text-lg tracking-widest">FITNESS • STRENGTH • POWER</p>
 
       <input
         type="text"
@@ -47,9 +48,7 @@ export default function GymTemplate({
         className="text-4xl font-bold mt-8 bg-transparent outline-none w-full"
       />
 
-      <p className="mt-4 text-lg">
-        {heroDescription}
-      </p>
+      <p className="mt-4 text-lg">{heroDescription}</p>
 
       <button className="mt-8 bg-black text-white px-6 py-3 rounded-lg">
         {buttonText}
