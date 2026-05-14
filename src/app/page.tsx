@@ -37,40 +37,33 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-  localStorage.setItem(
-    "websiteDraft",
-    JSON.stringify({
-      companyName,
-      heroTitle,
-      heroDescription,
-      buttonText,
-      color,
-      template,
-    })
-  );
-}, [
-  companyName,
-  heroTitle,
-  heroDescription,
-  buttonText,
-  color,
-  template,
-]);
+    localStorage.setItem(
+      "websiteDraft",
+      JSON.stringify({
+        companyName,
+        heroTitle,
+        heroDescription,
+        buttonText,
+        color,
+        template,
+      }),
+    );
+  }, [companyName, heroTitle, heroDescription, buttonText, color, template]);
 
-useEffect(() => {
-  const savedDraft = localStorage.getItem("websiteDraft");
+  useEffect(() => {
+    const savedDraft = localStorage.getItem("websiteDraft");
 
-  if (savedDraft) {
-    const draft = JSON.parse(savedDraft);
+    if (savedDraft) {
+      const draft = JSON.parse(savedDraft);
 
-    setCompanyName(draft.companyName || "");
-    setHeroTitle(draft.heroTitle || "");
-    setHeroDescription(draft.heroDescription || "");
-    setButtonText(draft.buttonText || "");
-    setColor(draft.color || "#000000");
-    setTemplate(draft.template || "startup");
-  }
-}, []);
+      setCompanyName(draft.companyName || "");
+      setHeroTitle(draft.heroTitle || "");
+      setHeroDescription(draft.heroDescription || "");
+      setButtonText(draft.buttonText || "");
+      setColor(draft.color || "#000000");
+      setTemplate(draft.template || "startup");
+    }
+  }, []);
 
   const handleSave = async () => {
     try {
@@ -94,29 +87,25 @@ useEffect(() => {
     }
   };
 
-  return (
-    <div className="min-h-screen flex flex-col md:flex-row">
-      {/* LEFT SIDE - FORM */}
+return (
+  <div className="min-h-screen bg-gray-100 flex flex-col lg:flex-row">
+    
+    {/* LEFT SIDEBAR */}
+    <div className="w-full lg:w-[320px]">
       <ConfigForm
-        companyName={companyName}
-        setCompanyName={setCompanyName}
         color={color}
         setColor={setColor}
         logoUrl={logoUrl}
         setLogoUrl={setLogoUrl}
-        heroTitle={heroTitle}
-        setHeroTitle={setHeroTitle}
-        heroDescription={heroDescription}
-        setHeroDescription={setHeroDescription}
-        buttonText={buttonText}
-        setButtonText={setButtonText}
-        handleSave={handleSave}
         template={template}
         setTemplate={setTemplate}
+        handleSave={handleSave}
       />
+    </div>
 
-      {/* RIGHT SIDE - PREVIEW */}
-      <div className="w-full md:w-1/2 p-6">
+    {/* RIGHT PREVIEW AREA */}
+    <div className="flex-1 flex items-start justify-center p-4 sm:p-6 lg:p-10 overflow-auto">
+      <div className="w-full max-w-6xl">
         <PreviewCard
           companyName={companyName}
           color={color}
@@ -132,5 +121,6 @@ useEffect(() => {
         />
       </div>
     </div>
-  );
+  </div>
+);
 }

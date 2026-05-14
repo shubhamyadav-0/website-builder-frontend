@@ -1,4 +1,5 @@
 import Navbar from "../Navbar";
+import HeroSection from "../sections/HeroSection";
 
 type Props = {
   companyName: string;
@@ -10,6 +11,8 @@ type Props = {
 
   setHeroTitle: (value: string) => void;
   setCompanyName: (value: string) => void;
+  setHeroDescription: (value: string) => void;
+setButtonText: (value: string) => void;
 };
 
 export default function PortfolioTemplate({
@@ -23,41 +26,23 @@ export default function PortfolioTemplate({
   setCompanyName,
 }: Props) {
   return (
-    <div className="border rounded-xl p-10 bg-white shadow-lg">
+  <div className="bg-white rounded-3xl overflow-hidden shadow-2xl">
+    
     <Navbar
-  companyName={companyName}
-  setCompanyName={setCompanyName}
-/>
+      companyName={companyName}
+      setCompanyName={setCompanyName}
+    />
 
-      {logoUrl && (
-        <img
-          src={logoUrl}
-          alt="logo"
-          className="h-20 w-20 object-cover rounded-lg mb-6"
-        />
-      )}
-
-      <h1 className="text-5xl font-light" style={{ color }}>
-        {companyName}
-      </h1>
-
-      <div className="mt-8 border-l-4 pl-6" style={{ borderColor: color }}>
-        <input
-          type="text"
-          value={heroTitle}
-          onChange={(e) => setHeroTitle(e.target.value)}
-          className="text-3xl font-semibold bg-transparent outline-none w-full"
-        />
-
-        <p className="mt-4 text-gray-600">{heroDescription}</p>
-      </div>
-
-      <button
-        className="mt-8 px-6 py-3 rounded-lg text-white"
-        style={{ backgroundColor: color }}
-      >
-        {buttonText}
-      </button>
-    </div>
-  );
+   <HeroSection
+        color={color}
+        logoUrl={logoUrl}
+        heroTitle={heroTitle}
+        heroDescription={heroDescription}
+        buttonText={buttonText}
+        setHeroTitle={setHeroTitle}
+        setHeroDescription={setHeroDescription}
+        setButtonText={setButtonText}
+      />
+  </div>
+);
 }

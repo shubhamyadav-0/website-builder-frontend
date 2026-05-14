@@ -1,6 +1,8 @@
 import Navbar from "../Navbar";
+import HeroSection from "../sections/HeroSection";
 
-type Props = {
+
+ type Props = {
   companyName: string;
   color: string;
   logoUrl: string;
@@ -9,8 +11,11 @@ type Props = {
   buttonText: string;
 
   setHeroTitle: (value: string) => void;
+  setHeroDescription: (value: string) => void;
+  setButtonText: (value: string) => void;
   setCompanyName: (value: string) => void;
 };
+
 
 export default function GymTemplate({
   companyName,
@@ -20,39 +25,24 @@ export default function GymTemplate({
   heroDescription,
   buttonText,
   setHeroTitle,
+  setHeroDescription,
+  setButtonText,
   setCompanyName,
 }: Props) {
   return (
-    <div
-      className="rounded-xl overflow-hidden shadow-xl text-white p-10"
-      style={{ backgroundColor: color }}
-    >
+    <div className="bg-white rounded-3xl overflow-hidden shadow-2xl">
       <Navbar companyName={companyName} setCompanyName={setCompanyName} />
 
-      {logoUrl && (
-        <img
-          src={logoUrl}
-          alt="logo"
-          className="h-20 w-20 object-cover rounded-lg mb-6"
-        />
-      )}
-
-      <h1 className="text-5xl font-extrabold uppercase">{companyName}</h1>
-
-      <p className="mt-2 text-lg tracking-widest">FITNESS • STRENGTH • POWER</p>
-
-      <input
-        type="text"
-        value={heroTitle}
-        onChange={(e) => setHeroTitle(e.target.value)}
-        className="text-4xl font-bold mt-8 bg-transparent outline-none w-full"
+      <HeroSection
+        color={color}
+        logoUrl={logoUrl}
+        heroTitle={heroTitle}
+        heroDescription={heroDescription}
+        buttonText={buttonText}
+        setHeroTitle={setHeroTitle}
+        setHeroDescription={setHeroDescription}
+        setButtonText={setButtonText}
       />
-
-      <p className="mt-4 text-lg">{heroDescription}</p>
-
-      <button className="mt-8 bg-black text-white px-6 py-3 rounded-lg">
-        {buttonText}
-      </button>
     </div>
   );
 }
