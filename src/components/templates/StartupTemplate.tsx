@@ -1,5 +1,6 @@
 import Navbar from "../Navbar";
 import HeroSection from "../sections/HeroSection";
+import FeaturesSection from "../sections/FeaturesSection";
 
 type Props = {
   companyName: string;
@@ -8,6 +9,8 @@ type Props = {
   heroTitle: string;
   heroDescription: string;
   buttonText: string;
+
+  sections: string[];
 
   setHeroTitle: (value: string) => void;
   setHeroDescription: (value: string) => void;
@@ -22,6 +25,7 @@ export default function StartupTemplate({
   heroTitle,
   heroDescription,
   buttonText,
+  sections,
   setHeroTitle,
   setHeroDescription,
   setButtonText,
@@ -29,13 +33,17 @@ export default function StartupTemplate({
 }: Props) {
   return (
     <div className="bg-white rounded-3xl overflow-hidden shadow-2xl">
-
+      
       <Navbar
         companyName={companyName}
         setCompanyName={setCompanyName}
       />
 
+     {sections.map((section) => {
+  if (section === "hero") {
+    return (
       <HeroSection
+        key="hero"
         color={color}
         logoUrl={logoUrl}
         heroTitle={heroTitle}
@@ -45,6 +53,17 @@ export default function StartupTemplate({
         setHeroDescription={setHeroDescription}
         setButtonText={setButtonText}
       />
+    );
+  }
+
+  if (section === "features") {
+    return (
+      <FeaturesSection key="features" />
+    );
+  }
+
+  return null;
+})}
     </div>
   );
 }

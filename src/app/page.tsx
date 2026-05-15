@@ -13,7 +13,7 @@ export default function Home() {
   const [heroDescription, setHeroDescription] = useState("");
   const [buttonText, setButtonText] = useState("");
   const [template, setTemplate] = useState("startup");
-
+  const [sections, setSections] = useState(["hero"]);
   useEffect(() => {
     const fetchConfig = async () => {
       try {
@@ -87,40 +87,42 @@ export default function Home() {
     }
   };
 
-return (
-  <div className="min-h-screen bg-gray-100 flex flex-col lg:flex-row">
-    
-    {/* LEFT SIDEBAR */}
-    <div className="w-full lg:w-[320px]">
-      <ConfigForm
-        color={color}
-        setColor={setColor}
-        logoUrl={logoUrl}
-        setLogoUrl={setLogoUrl}
-        template={template}
-        setTemplate={setTemplate}
-        handleSave={handleSave}
-      />
-    </div>
-
-    {/* RIGHT PREVIEW AREA */}
-    <div className="flex-1 flex items-start justify-center p-4 sm:p-6 lg:p-10 overflow-auto">
-      <div className="w-full max-w-6xl">
-        <PreviewCard
-          companyName={companyName}
+  return (
+    <div className="min-h-screen bg-gray-100 flex flex-col lg:flex-row">
+      {/* LEFT SIDEBAR */}
+      <div className="w-full lg:w-[320px]">
+        <ConfigForm
           color={color}
+          setColor={setColor}
           logoUrl={logoUrl}
-          heroTitle={heroTitle}
-          heroDescription={heroDescription}
-          buttonText={buttonText}
+          setLogoUrl={setLogoUrl}
           template={template}
-          setHeroTitle={setHeroTitle}
-          setHeroDescription={setHeroDescription}
-          setButtonText={setButtonText}
-          setCompanyName={setCompanyName}
+          setTemplate={setTemplate}
+          handleSave={handleSave}
+          sections={sections}
+          setSections={setSections}
         />
       </div>
+
+      {/* RIGHT PREVIEW AREA */}
+      <div className="flex-1 flex items-start justify-center p-4 sm:p-6 lg:p-10 overflow-auto">
+        <div className="w-full max-w-6xl">
+          <PreviewCard
+            companyName={companyName}
+            color={color}
+            logoUrl={logoUrl}
+            heroTitle={heroTitle}
+            heroDescription={heroDescription}
+            buttonText={buttonText}
+            template={template}
+            sections={sections}
+            setHeroTitle={setHeroTitle}
+            setHeroDescription={setHeroDescription}
+            setButtonText={setButtonText}
+            setCompanyName={setCompanyName}
+          />
+        </div>
+      </div>
     </div>
-  </div>
-);
+  );
 }

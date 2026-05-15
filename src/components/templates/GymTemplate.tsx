@@ -1,8 +1,8 @@
 import Navbar from "../Navbar";
 import HeroSection from "../sections/HeroSection";
+import FeaturesSection from "../sections/FeaturesSection";
 
-
- type Props = {
+type Props = {
   companyName: string;
   color: string;
   logoUrl: string;
@@ -10,12 +10,13 @@ import HeroSection from "../sections/HeroSection";
   heroDescription: string;
   buttonText: string;
 
+  sections: string[];
+
   setHeroTitle: (value: string) => void;
   setHeroDescription: (value: string) => void;
   setButtonText: (value: string) => void;
   setCompanyName: (value: string) => void;
 };
-
 
 export default function GymTemplate({
   companyName,
@@ -24,6 +25,7 @@ export default function GymTemplate({
   heroTitle,
   heroDescription,
   buttonText,
+  sections,
   setHeroTitle,
   setHeroDescription,
   setButtonText,
@@ -31,9 +33,17 @@ export default function GymTemplate({
 }: Props) {
   return (
     <div className="bg-white rounded-3xl overflow-hidden shadow-2xl">
-      <Navbar companyName={companyName} setCompanyName={setCompanyName} />
 
+      <Navbar
+        companyName={companyName}
+        setCompanyName={setCompanyName}
+      />
+
+     {sections.map((section) => {
+  if (section === "hero") {
+    return (
       <HeroSection
+        key="hero"
         color={color}
         logoUrl={logoUrl}
         heroTitle={heroTitle}
@@ -43,6 +53,17 @@ export default function GymTemplate({
         setHeroDescription={setHeroDescription}
         setButtonText={setButtonText}
       />
+    );
+  }
+
+  if (section === "features") {
+    return (
+      <FeaturesSection key="features" />
+    );
+  }
+
+  return null;
+})}
     </div>
   );
 }

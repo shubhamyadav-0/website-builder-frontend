@@ -9,6 +9,9 @@ type ConfigFormProps = {
   setTemplate: (value: string) => void;
 
   handleSave: () => void;
+
+  sections: string[];
+  setSections: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
 export default function ConfigForm({
@@ -19,78 +22,142 @@ export default function ConfigForm({
   template,
   setTemplate,
   handleSave,
+  sections,
+  setSections,
 }: ConfigFormProps) {
-return (
-  <div className="h-full lg:min-h-screen bg-white border-r shadow-sm p-5 sm:p-6">
-    
-    <h2 className="text-2xl font-bold text-gray-800 mb-6">
-      Website Settings
-    </h2>
+  return (
+    <div className="h-full lg:min-h-screen bg-white border-r shadow-sm p-5 sm:p-6">
 
-    {/* COLOR PICKER */}
-    <div className="mb-5">
-      <label className="block text-sm font-medium text-gray-600 mb-2">
-        Theme Color
-      </label>
+      <h2 className="text-2xl font-bold text-gray-800 mb-6">
+        Website Settings
+      </h2>
 
-      <input
-        type="color"
-        className="w-full h-12 rounded cursor-pointer border"
-        value={color}
-        onChange={(e) => setColor(e.target.value)}
-      />
-    </div>
+      {/* COLOR PICKER */}
+      <div className="mb-5">
+        <label className="block text-sm font-medium text-gray-600 mb-2">
+          Theme Color
+        </label>
 
-    {/* FILE UPLOAD */}
-    <div className="mb-5">
-      <label className="block text-sm font-medium text-gray-600 mb-2">
-        Upload Logo
-      </label>
+        <input
+          type="color"
+          className="w-full h-12 rounded cursor-pointer border"
+          value={color}
+          onChange={(e) => setColor(e.target.value)}
+        />
+      </div>
 
-      <input
-        type="file"
-        accept="image/*"
-        className="w-full border rounded-lg p-2 bg-gray-50"
-        onChange={(e) => {
-          const file = e.target.files?.[0];
+      {/* FILE UPLOAD */}
+      <div className="mb-5">
+        <label className="block text-sm font-medium text-gray-600 mb-2">
+          Upload Logo
+        </label>
 
-          if (file) {
-            const reader = new FileReader();
+        <input
+          type="file"
+          accept="image/*"
+          className="w-full border rounded-lg p-2 bg-gray-50"
+          onChange={(e) => {
+            const file = e.target.files?.[0];
 
-            reader.onloadend = () => {
-              setLogoUrl(reader.result as string);
-            };
+            if (file) {
+              const reader = new FileReader();
 
-            reader.readAsDataURL(file);
-          }
-        }}
-      />
-    </div>
+              reader.onloadend = () => {
+                setLogoUrl(reader.result as string);
+              };
 
-    {/* TEMPLATE SELECT */}
-    <div className="mb-6">
-      <label className="block text-sm font-medium text-gray-600 mb-2">
-        Choose Template
-      </label>
+              reader.readAsDataURL(file);
+            }
+          }}
+        />
+      </div>
 
-      <select
-        value={template}
-        onChange={(e) => setTemplate(e.target.value)}
-        className="w-full border rounded-lg p-3 bg-white"
+      {/* TEMPLATE SELECT */}
+      <div className="mb-6">
+        <label className="block text-sm font-medium text-gray-600 mb-2">
+          Choose Template
+        </label>
+
+        <select
+          value={template}
+          onChange={(e) => setTemplate(e.target.value)}
+          className="w-full border rounded-lg p-3 bg-white"
+        >
+          <option value="startup">Startup</option>
+          <option value="gym">Gym</option>
+          <option value="portfolio">Portfolio</option>
+        </select>
+      </div>
+
+      {/* SECTION CONTROLS */}
+      <div className="mb-8">
+        <h3 className="text-lg font-semibold text-gray-800 mb-3">
+          Sections
+        </h3>
+
+        <div className="flex flex-col gap-3">
+
+          {!sections.includes("hero") && (
+            <button
+              onClick={() =>
+                setSections([...sections, "hero"])
+              }
+              className="bg-green-500 hover:bg-green-600 transition text-white py-2 rounded-lg font-medium"
+            >
+              Add Hero Section
+            </button>
+          )}
+
+          {!sections.includes("features") && (
+  <button
+    onClick={() =>
+      setSections([...sections, "features"])
+    }
+    className="bg-green-500 hover:bg-green-600 transition text-white py-2 rounded-lg font-medium"
+  >
+    Add Features Section
+  </button>
+)}
+
+{sections.includes("features") && (
+  <button
+    onClick={() =>
+      setSections(
+        sections.filter(
+          (section) => section !== "features"
+        )
+      )
+    }
+    className="bg-red-500 hover:bg-red-600 transition text-white py-2 rounded-lg font-medium"
+  >
+    Remove Features Section
+  </button>
+)}
+
+          {sections.includes("hero") && (
+            <button
+              onClick={() =>
+                setSections(
+                  sections.filter(
+                    (section) => section !== "hero"
+                  )
+                )
+              }
+              className="bg-red-500 hover:bg-red-600 transition text-white py-2 rounded-lg font-medium"
+            >
+              Remove Hero Section
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* SAVE BUTTON */}
+      <button
+        onClick={handleSave}
+        className="w-full bg-black hover:bg-gray-800 transition text-white py-3 rounded-xl font-semibold"
       >
-        <option value="startup">Startup</option>
-        <option value="gym">Gym</option>
-        <option value="portfolio">Portfolio</option>
-      </select>
+        Publish Website
+      </button>
     </div>
-
-    {/* BUTTON */}
-    <button
-      onClick={handleSave}
-      className="w-full bg-black hover:bg-gray-800 transition text-white py-3 rounded-xl font-semibold"
-    >
-      Publish Website
-    </button>
-  </div>
-);
+  );
 }

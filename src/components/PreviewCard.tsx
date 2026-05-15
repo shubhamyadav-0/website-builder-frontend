@@ -11,6 +11,8 @@ type PreviewProps = {
   buttonText: string;
   template: string;
 
+  sections: string[];
+
   setHeroTitle: (value: string) => void;
   setHeroDescription: (value: string) => void;
   setButtonText: (value: string) => void;
@@ -25,6 +27,7 @@ export default function PreviewCard({
   heroDescription,
   buttonText,
   template,
+  sections,
   setHeroTitle,
   setHeroDescription,
   setButtonText,
@@ -33,18 +36,19 @@ export default function PreviewCard({
 
   if (template === "startup") {
     return (
-  <StartupTemplate
-  companyName={companyName}
-  color={color}
-  heroTitle={heroTitle}
-  heroDescription={heroDescription}
-  buttonText={buttonText}
-  logoUrl={logoUrl}
-  setHeroTitle={setHeroTitle}
-  setHeroDescription={setHeroDescription}
-  setButtonText={setButtonText}
-  setCompanyName={setCompanyName}
-/>
+      <StartupTemplate
+        companyName={companyName}
+        color={color}
+        heroTitle={heroTitle}
+        heroDescription={heroDescription}
+        buttonText={buttonText}
+        logoUrl={logoUrl}
+        sections={sections}
+        setHeroTitle={setHeroTitle}
+        setHeroDescription={setHeroDescription}
+        setButtonText={setButtonText}
+        setCompanyName={setCompanyName}
+      />
     );
   }
 
@@ -57,7 +61,10 @@ export default function PreviewCard({
         heroDescription={heroDescription}
         buttonText={buttonText}
         logoUrl={logoUrl}
+        sections={sections}
         setHeroTitle={setHeroTitle}
+        setHeroDescription={setHeroDescription}
+        setButtonText={setButtonText}
         setCompanyName={setCompanyName}
       />
     );
@@ -72,7 +79,10 @@ export default function PreviewCard({
         heroDescription={heroDescription}
         buttonText={buttonText}
         logoUrl={logoUrl}
+        sections={sections}
         setHeroTitle={setHeroTitle}
+        setHeroDescription={setHeroDescription}
+        setButtonText={setButtonText}
         setCompanyName={setCompanyName}
       />
     );
