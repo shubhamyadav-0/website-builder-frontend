@@ -26,7 +26,7 @@ export default function ConfigForm({
   setSections,
 }: ConfigFormProps) {
   return (
-    <div className="h-full lg:min-h-screen bg-white border-r shadow-sm p-5 sm:p-6">
+    <div className="h-full lg:min-h-screen bg-white border-r shadow-sm p-5 sm:p-6 overflow-y-auto">
 
       <h2 className="text-2xl font-bold text-gray-800 mb-6">
         Website Settings
@@ -97,6 +97,8 @@ export default function ConfigForm({
 
         <div className="flex flex-col gap-3">
 
+          {/* HERO */}
+
           {!sections.includes("hero") && (
             <button
               onClick={() =>
@@ -107,32 +109,6 @@ export default function ConfigForm({
               Add Hero Section
             </button>
           )}
-
-          {!sections.includes("features") && (
-  <button
-    onClick={() =>
-      setSections([...sections, "features"])
-    }
-    className="bg-green-500 hover:bg-green-600 transition text-white py-2 rounded-lg font-medium"
-  >
-    Add Features Section
-  </button>
-)}
-
-{sections.includes("features") && (
-  <button
-    onClick={() =>
-      setSections(
-        sections.filter(
-          (section) => section !== "features"
-        )
-      )
-    }
-    className="bg-red-500 hover:bg-red-600 transition text-white py-2 rounded-lg font-medium"
-  >
-    Remove Features Section
-  </button>
-)}
 
           {sections.includes("hero") && (
             <button
@@ -148,6 +124,63 @@ export default function ConfigForm({
               Remove Hero Section
             </button>
           )}
+
+          {/* FEATURES */}
+
+          {!sections.includes("features") && (
+            <button
+              onClick={() =>
+                setSections([...sections, "features"])
+              }
+              className="bg-green-500 hover:bg-green-600 transition text-white py-2 rounded-lg font-medium"
+            >
+              Add Features Section
+            </button>
+          )}
+
+          {sections.includes("features") && (
+            <button
+              onClick={() =>
+                setSections(
+                  sections.filter(
+                    (section) => section !== "features"
+                  )
+                )
+              }
+              className="bg-red-500 hover:bg-red-600 transition text-white py-2 rounded-lg font-medium"
+            >
+              Remove Features Section
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* REORDER CONTROLS */}
+      <div className="mb-8">
+        <h3 className="text-lg font-semibold text-gray-800 mb-3">
+          Reorder Sections
+        </h3>
+
+        <div className="flex flex-col gap-3">
+
+          <button
+            onClick={() =>
+              setSections(["features", "hero"])
+            }
+            className="bg-blue-500 hover:bg-blue-600 transition text-white py-2 rounded-lg font-medium"
+          >
+            Move Features Above Hero
+          </button>
+
+          <button
+            onClick={() =>
+              setSections(["hero", "features"])
+            }
+            className="bg-purple-500 hover:bg-purple-600 transition text-white py-2 rounded-lg font-medium"
+          >
+            Move Hero Above Features
+          </button>
+
         </div>
       </div>
 

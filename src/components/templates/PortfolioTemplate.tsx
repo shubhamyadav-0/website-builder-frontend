@@ -39,31 +39,33 @@ export default function PortfolioTemplate({
         setCompanyName={setCompanyName}
       />
 
-     {sections.map((section) => {
-  if (section === "hero") {
-    return (
-      <HeroSection
-        key="hero"
-        color={color}
-        logoUrl={logoUrl}
-        heroTitle={heroTitle}
-        heroDescription={heroDescription}
-        buttonText={buttonText}
-        setHeroTitle={setHeroTitle}
-        setHeroDescription={setHeroDescription}
-        setButtonText={setButtonText}
-      />
-    );
-  }
+      {sections.map((section) => {
+        if (section === "hero") {
+          return (
+            <HeroSection
+              key="hero"
+              color={color}
+              logoUrl={logoUrl}
+              heroTitle={heroTitle}
+              heroDescription={heroDescription}
+              buttonText={buttonText}
+              setHeroTitle={setHeroTitle}
+              setHeroDescription={setHeroDescription}
+              setButtonText={setButtonText}
+            />
+          );
+        }
 
-  if (section === "features") {
-    return (
-      <FeaturesSection key="features" />
-    );
-  }
+        if (section === "features") {
+          return (
+            <FeaturesSection
+              key="features"
+            />
+          );
+        }
 
-  return null;
-})}
+        return null;
+      })}
     </div>
   );
 }

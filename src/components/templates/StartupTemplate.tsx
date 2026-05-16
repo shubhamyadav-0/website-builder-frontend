@@ -33,37 +33,39 @@ export default function StartupTemplate({
 }: Props) {
   return (
     <div className="bg-white rounded-3xl overflow-hidden shadow-2xl">
-      
+
       <Navbar
         companyName={companyName}
         setCompanyName={setCompanyName}
       />
 
-     {sections.map((section) => {
-  if (section === "hero") {
-    return (
-      <HeroSection
-        key="hero"
-        color={color}
-        logoUrl={logoUrl}
-        heroTitle={heroTitle}
-        heroDescription={heroDescription}
-        buttonText={buttonText}
-        setHeroTitle={setHeroTitle}
-        setHeroDescription={setHeroDescription}
-        setButtonText={setButtonText}
-      />
-    );
-  }
+      {sections.map((section) => {
+        if (section === "hero") {
+          return (
+            <HeroSection
+              key="hero"
+              color={color}
+              logoUrl={logoUrl}
+              heroTitle={heroTitle}
+              heroDescription={heroDescription}
+              buttonText={buttonText}
+              setHeroTitle={setHeroTitle}
+              setHeroDescription={setHeroDescription}
+              setButtonText={setButtonText}
+            />
+          );
+        }
 
-  if (section === "features") {
-    return (
-      <FeaturesSection key="features" />
-    );
-  }
+        if (section === "features") {
+          return (
+            <FeaturesSection
+              key="features"
+            />
+          );
+        }
 
-  return null;
-})}
+        return null;
+      })}
     </div>
   );
 }
