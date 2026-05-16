@@ -1,43 +1,114 @@
-export default function FeaturesSection() {
+type Feature = {
+  title: string;
+  description: string;
+};
+
+type Props = {
+  features: Feature[];
+
+  setFeatures: React.Dispatch<
+    React.SetStateAction<Feature[]>
+  >;
+};
+
+export default function FeaturesSection({
+  features,
+  setFeatures,
+}: Props) {
+
+  const updateFeature = (
+    index: number,
+    field: "title" | "description",
+    value: string
+  ) => {
+
+    const updatedFeatures = [...features];
+
+    updatedFeatures[index][field] = value;
+
+    setFeatures(updatedFeatures);
+  };
+
+  const addFeature = () => {
+    setFeatures([
+      ...features,
+      {
+        title: "New Feature",
+        description:
+          "Describe your feature here.",
+      },
+    ]);
+  };
+
+  const removeFeature = (index: number) => {
+    const updatedFeatures =
+      features.filter(
+        (_, i) => i !== index
+      );
+
+    setFeatures(updatedFeatures);
+  };
+
   return (
     <div className="bg-white p-6 sm:p-10 lg:p-16 border-t">
 
-      <h2 className="text-3xl sm:text-4xl font-bold text-center">
-        Features
-      </h2>
+      <div className="flex items-center justify-between gap-4 flex-wrap">
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+        <h2 className="text-3xl sm:text-4xl font-bold">
+          Features
+        </h2>
 
-        <div className="p-6 rounded-2xl shadow-md border">
-          <h3 className="text-xl font-semibold">
-            Fast Performance
-          </h3>
+        <button
+          onClick={addFeature}
+          className="bg-black text-white px-5 py-2 rounded-xl"
+        >
+          Add Feature
+        </button>
+      </div>
 
-          <p className="mt-3 text-gray-600">
-            Optimized for speed and modern web experience.
-          </p>
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
 
-        <div className="p-6 rounded-2xl shadow-md border">
-          <h3 className="text-xl font-semibold">
-            Responsive Design
-          </h3>
+        {features.map((feature, index) => (
+          <div
+            key={index}
+            className="p-6 rounded-2xl shadow-md border bg-gray-50"
+          >
 
-          <p className="mt-3 text-gray-600">
-            Looks perfect on mobile, tablet, and desktop.
-          </p>
-        </div>
+            <input
+              type="text"
+              value={feature.title}
+              onChange={(e) =>
+                updateFeature(
+                  index,
+                  "title",
+                  e.target.value
+                )
+              }
+              className="text-xl font-semibold w-full outline-none bg-transparent"
+            />
 
-        <div className="p-6 rounded-2xl shadow-md border">
-          <h3 className="text-xl font-semibold">
-            Easy Customization
-          </h3>
+            <textarea
+              value={feature.description}
+              onChange={(e) =>
+                updateFeature(
+                  index,
+                  "description",
+                  e.target.value
+                )
+              }
+              className="mt-3 text-gray-600 w-full outline-none resize-none bg-transparent"
+            />
 
-          <p className="mt-3 text-gray-600">
-            Edit content directly from the live preview.
-          </p>
-        </div>
-
+            <button
+              onClick={() =>
+                removeFeature(index)
+              }
+              className="mt-4 bg-red-500 hover:bg-red-600 transition text-white px-4 py-2 rounded-lg"
+            >
+              Remove
+            </button>
+          </div>
+        ))}
       </div>
     </div>
   );

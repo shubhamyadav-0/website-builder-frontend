@@ -2,6 +2,11 @@ import StartupTemplate from "./templates/StartupTemplate";
 import GymTemplate from "./templates/GymTemplate";
 import PortfolioTemplate from "./templates/PortfolioTemplate";
 
+type Feature = {
+  title: string;
+  description: string;
+};
+
 type PreviewProps = {
   companyName: string;
   color: string;
@@ -9,9 +14,16 @@ type PreviewProps = {
   heroTitle: string;
   heroDescription: string;
   buttonText: string;
+
   template: string;
 
   sections: string[];
+
+  features: Feature[];
+
+  setFeatures: React.Dispatch<
+    React.SetStateAction<Feature[]>
+  >;
 
   setHeroTitle: (value: string) => void;
   setHeroDescription: (value: string) => void;
@@ -28,6 +40,8 @@ export default function PreviewCard({
   buttonText,
   template,
   sections,
+  features,
+  setFeatures,
   setHeroTitle,
   setHeroDescription,
   setButtonText,
@@ -39,11 +53,13 @@ export default function PreviewCard({
       <StartupTemplate
         companyName={companyName}
         color={color}
+        logoUrl={logoUrl}
         heroTitle={heroTitle}
         heroDescription={heroDescription}
         buttonText={buttonText}
-        logoUrl={logoUrl}
         sections={sections}
+        features={features}
+        setFeatures={setFeatures}
         setHeroTitle={setHeroTitle}
         setHeroDescription={setHeroDescription}
         setButtonText={setButtonText}
@@ -57,11 +73,13 @@ export default function PreviewCard({
       <GymTemplate
         companyName={companyName}
         color={color}
+        logoUrl={logoUrl}
         heroTitle={heroTitle}
         heroDescription={heroDescription}
         buttonText={buttonText}
-        logoUrl={logoUrl}
         sections={sections}
+        features={features}
+        setFeatures={setFeatures}
         setHeroTitle={setHeroTitle}
         setHeroDescription={setHeroDescription}
         setButtonText={setButtonText}
@@ -75,11 +93,13 @@ export default function PreviewCard({
       <PortfolioTemplate
         companyName={companyName}
         color={color}
+        logoUrl={logoUrl}
         heroTitle={heroTitle}
         heroDescription={heroDescription}
         buttonText={buttonText}
-        logoUrl={logoUrl}
         sections={sections}
+        features={features}
+        setFeatures={setFeatures}
         setHeroTitle={setHeroTitle}
         setHeroDescription={setHeroDescription}
         setButtonText={setButtonText}

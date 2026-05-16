@@ -12,8 +12,33 @@ export default function Home() {
   const [heroTitle, setHeroTitle] = useState("");
   const [heroDescription, setHeroDescription] = useState("");
   const [buttonText, setButtonText] = useState("");
+
   const [template, setTemplate] = useState("startup");
-  const [sections, setSections] = useState(["hero"]);
+
+  const [sections, setSections] = useState([
+    "hero",
+  ]);
+
+  const [features, setFeatures] = useState([
+    {
+      title: "Fast Performance",
+      description:
+        "Optimized for speed and modern web experience.",
+    },
+    {
+      title: "Responsive Design",
+      description:
+        "Looks perfect on mobile, tablet, and desktop.",
+    },
+    {
+      title: "Easy Customization",
+      description:
+        "Edit content directly from the live preview.",
+    },
+  ]);
+
+  /* FETCH SAVED CONFIG */
+
   useEffect(() => {
     const fetchConfig = async () => {
       try {
@@ -29,12 +54,17 @@ export default function Home() {
           setTemplate(data.template || "startup");
         }
       } catch (error) {
-        console.error("Error fetching config:", error);
+        console.error(
+          "Error fetching config:",
+          error
+        );
       }
     };
 
     fetchConfig();
   }, []);
+
+  /* SAVE DRAFT TO LOCAL STORAGE */
 
   useEffect(() => {
     localStorage.setItem(
@@ -46,24 +76,65 @@ export default function Home() {
         buttonText,
         color,
         template,
-      }),
+        sections,
+        features,
+      })
     );
-  }, [companyName, heroTitle, heroDescription, buttonText, color, template]);
+  }, [
+    companyName,
+    heroTitle,
+    heroDescription,
+    buttonText,
+    color,
+    template,
+    sections,
+    features,
+  ]);
+
+  /* LOAD DRAFT */
 
   useEffect(() => {
-    const savedDraft = localStorage.getItem("websiteDraft");
+    const savedDraft =
+      localStorage.getItem("websiteDraft");
 
     if (savedDraft) {
       const draft = JSON.parse(savedDraft);
 
-      setCompanyName(draft.companyName || "");
-      setHeroTitle(draft.heroTitle || "");
-      setHeroDescription(draft.heroDescription || "");
-      setButtonText(draft.buttonText || "");
-      setColor(draft.color || "#000000");
-      setTemplate(draft.template || "startup");
+      setCompanyName(
+        draft.companyName || ""
+      );
+
+      setHeroTitle(
+        draft.heroTitle || ""
+      );
+
+      setHeroDescription(
+        draft.heroDescription || ""
+      );
+
+      setButtonText(
+        draft.buttonText || ""
+      );
+
+      setColor(
+        draft.color || "#000000"
+      );
+
+      setTemplate(
+        draft.template || "startup"
+      );
+
+      setSections(
+        draft.sections || ["hero"]
+      );
+
+      setFeatures(
+        draft.features || []
+      );
     }
   }, []);
+
+  /* SAVE TO BACKEND */
 
   const handleSave = async () => {
     try {
@@ -75,22 +146,34 @@ export default function Home() {
         heroDescription,
         buttonText,
         template,
+        sections,
+        features,
       });
 
       console.log("Saved:", data);
 
-      alert("Data saved successfully");
+      alert(
+        "Data saved successfully"
+      );
     } catch (error) {
-      console.error("Error:", error);
+      console.error(
+        "Error:",
+        error
+      );
 
-      alert("Error saving data");
+      alert(
+        "Error saving data"
+      );
     }
   };
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col lg:flex-row">
+
       {/* LEFT SIDEBAR */}
+
       <div className="w-full lg:w-[320px]">
+
         <ConfigForm
           color={color}
           setColor={setColor}
@@ -105,8 +188,11 @@ export default function Home() {
       </div>
 
       {/* RIGHT PREVIEW AREA */}
+
       <div className="flex-1 flex items-start justify-center p-4 sm:p-6 lg:p-10 overflow-auto">
+
         <div className="w-full max-w-6xl">
+
           <PreviewCard
             companyName={companyName}
             color={color}
@@ -117,9 +203,13 @@ export default function Home() {
             template={template}
             sections={sections}
             setHeroTitle={setHeroTitle}
-            setHeroDescription={setHeroDescription}
+            setHeroDescription={
+              setHeroDescription
+            }
             setButtonText={setButtonText}
             setCompanyName={setCompanyName}
+            features={features}
+            setFeatures={setFeatures}
           />
         </div>
       </div>

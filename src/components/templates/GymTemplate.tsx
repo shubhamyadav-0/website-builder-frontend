@@ -2,6 +2,11 @@ import Navbar from "../Navbar";
 import HeroSection from "../sections/HeroSection";
 import FeaturesSection from "../sections/FeaturesSection";
 
+type Feature = {
+  title: string;
+  description: string;
+};
+
 type Props = {
   companyName: string;
   color: string;
@@ -11,6 +16,12 @@ type Props = {
   buttonText: string;
 
   sections: string[];
+
+  features: Feature[];
+
+  setFeatures: React.Dispatch<
+    React.SetStateAction<Feature[]>
+  >;
 
   setHeroTitle: (value: string) => void;
   setHeroDescription: (value: string) => void;
@@ -26,6 +37,8 @@ export default function GymTemplate({
   heroDescription,
   buttonText,
   sections,
+  features,
+  setFeatures,
   setHeroTitle,
   setHeroDescription,
   setButtonText,
@@ -40,6 +53,7 @@ export default function GymTemplate({
       />
 
       {sections.map((section) => {
+
         if (section === "hero") {
           return (
             <HeroSection
@@ -60,6 +74,8 @@ export default function GymTemplate({
           return (
             <FeaturesSection
               key="features"
+              features={features}
+              setFeatures={setFeatures}
             />
           );
         }
