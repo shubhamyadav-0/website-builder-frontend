@@ -11,6 +11,7 @@ type Props = {
   companyName: string;
   color: string;
   logoUrl: string;
+
   heroTitle: string;
   heroDescription: string;
   buttonText: string;
@@ -19,14 +20,16 @@ type Props = {
 
   features: Feature[];
 
-  setFeatures: React.Dispatch<
-    React.SetStateAction<Feature[]>
-  >;
+  setFeatures: React.Dispatch<React.SetStateAction<Feature[]>>;
 
   setHeroTitle: (value: string) => void;
   setHeroDescription: (value: string) => void;
+
   setButtonText: (value: string) => void;
+
   setCompanyName: (value: string) => void;
+
+  isEditable?: boolean;
 };
 
 export default function GymTemplate({
@@ -43,17 +46,13 @@ export default function GymTemplate({
   setHeroDescription,
   setButtonText,
   setCompanyName,
+  isEditable = true,
 }: Props) {
   return (
     <div className="bg-white rounded-3xl overflow-hidden shadow-2xl">
-
-      <Navbar
-        companyName={companyName}
-        setCompanyName={setCompanyName}
-      />
+      <Navbar companyName={companyName} setCompanyName={setCompanyName} />
 
       {sections.map((section) => {
-
         if (section === "hero") {
           return (
             <HeroSection
@@ -66,6 +65,7 @@ export default function GymTemplate({
               setHeroTitle={setHeroTitle}
               setHeroDescription={setHeroDescription}
               setButtonText={setButtonText}
+              isEditable={isEditable}
             />
           );
         }
@@ -76,6 +76,7 @@ export default function GymTemplate({
               key="features"
               features={features}
               setFeatures={setFeatures}
+              isEditable={isEditable}
             />
           );
         }

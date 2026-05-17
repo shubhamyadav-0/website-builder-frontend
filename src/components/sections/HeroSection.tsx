@@ -1,4 +1,4 @@
-type HeroSectionProps = {
+type Props = {
   color: string;
   logoUrl: string;
 
@@ -9,6 +9,8 @@ type HeroSectionProps = {
   setHeroTitle: (value: string) => void;
   setHeroDescription: (value: string) => void;
   setButtonText: (value: string) => void;
+
+  isEditable?: boolean;
 };
 
 export default function HeroSection({
@@ -20,7 +22,8 @@ export default function HeroSection({
   setHeroTitle,
   setHeroDescription,
   setButtonText,
-}: HeroSectionProps) {
+  isEditable = true,
+}: Props) {
   return (
     <div
       className="p-6 sm:p-10 lg:p-16"
@@ -35,25 +38,59 @@ export default function HeroSection({
         />
       )}
 
-      <input
-        type="text"
-        value={heroTitle}
-        onChange={(e) => setHeroTitle(e.target.value)}
-        className="text-3xl sm:text-5xl lg:text-6xl font-bold bg-transparent outline-none w-full text-white leading-tight"
-      />
+      {/* HERO TITLE */}
 
-      <textarea
-        value={heroDescription}
-        onChange={(e) => setHeroDescription(e.target.value)}
-        className="mt-6 text-base sm:text-lg lg:text-xl bg-transparent outline-none w-full resize-none text-white/90 leading-relaxed"
-      />
+      {isEditable ? (
+        <input
+          type="text"
+          value={heroTitle}
+          onChange={(e) =>
+            setHeroTitle(e.target.value)
+          }
+          className="text-3xl sm:text-5xl lg:text-6xl font-bold bg-transparent outline-none w-full text-white leading-tight"
+        />
+      ) : (
+        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight">
+          {heroTitle}
+        </h1>
+      )}
 
-      <input
-        type="text"
-        value={buttonText}
-        onChange={(e) => setButtonText(e.target.value)}
-        className="mt-8 bg-white text-black px-6 py-4 rounded-xl outline-none font-medium shadow-lg w-full sm:w-fit"
-      />
+      {/* HERO DESCRIPTION */}
+
+      {isEditable ? (
+        <textarea
+          value={heroDescription}
+          onChange={(e) =>
+            setHeroDescription(
+              e.target.value
+            )
+          }
+          className="mt-6 text-base sm:text-lg lg:text-xl bg-transparent outline-none w-full resize-none text-white/90 leading-relaxed"
+        />
+      ) : (
+        <p className="mt-6 text-base sm:text-lg lg:text-xl text-white/90 leading-relaxed">
+          {heroDescription}
+        </p>
+      )}
+
+      {/* BUTTON */}
+
+      {isEditable ? (
+        <input
+          type="text"
+          value={buttonText}
+          onChange={(e) =>
+            setButtonText(
+              e.target.value
+            )
+          }
+          className="mt-8 bg-white text-black px-6 py-4 rounded-xl outline-none font-medium shadow-lg w-full sm:w-fit"
+        />
+      ) : (
+        <button className="mt-8 bg-white text-black px-6 py-4 rounded-xl font-medium shadow-lg">
+          {buttonText}
+        </button>
+      )}
     </div>
   );
 }

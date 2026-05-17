@@ -29,6 +29,7 @@ type PreviewProps = {
   setHeroDescription: (value: string) => void;
   setButtonText: (value: string) => void;
   setCompanyName: (value: string) => void;
+  isEditable?: boolean;
 };
 
 export default function PreviewCard({
@@ -46,6 +47,7 @@ export default function PreviewCard({
   setHeroDescription,
   setButtonText,
   setCompanyName,
+  isEditable = true,
 }: PreviewProps) {
 
   if (template === "startup") {

@@ -11,6 +11,7 @@ type Props = {
   companyName: string;
   color: string;
   logoUrl: string;
+
   heroTitle: string;
   heroDescription: string;
   buttonText: string;
@@ -24,9 +25,19 @@ type Props = {
   >;
 
   setHeroTitle: (value: string) => void;
-  setHeroDescription: (value: string) => void;
-  setButtonText: (value: string) => void;
-  setCompanyName: (value: string) => void;
+  setHeroDescription: (
+    value: string
+  ) => void;
+
+  setButtonText: (
+    value: string
+  ) => void;
+
+  setCompanyName: (
+    value: string
+  ) => void;
+
+  isEditable?: boolean;
 };
 
 export default function PortfolioTemplate({
@@ -43,20 +54,25 @@ export default function PortfolioTemplate({
   setHeroDescription,
   setButtonText,
   setCompanyName,
+  isEditable = true,
 }: Props) {
+
   return (
     <div className="bg-white rounded-3xl overflow-hidden shadow-2xl">
 
       <Navbar
         companyName={companyName}
-        setCompanyName={setCompanyName}
+        setCompanyName={
+          setCompanyName
+        }
       />
 
       {sections.map((section) => {
 
         if (section === "hero") {
+
           return (
-            <HeroSection
+             <HeroSection
               key="hero"
               color={color}
               logoUrl={logoUrl}
@@ -66,16 +82,19 @@ export default function PortfolioTemplate({
               setHeroTitle={setHeroTitle}
               setHeroDescription={setHeroDescription}
               setButtonText={setButtonText}
+              isEditable={isEditable}
             />
           );
         }
 
         if (section === "features") {
+
           return (
-            <FeaturesSection
+           <FeaturesSection
               key="features"
               features={features}
               setFeatures={setFeatures}
+              isEditable={isEditable}
             />
           );
         }

@@ -9,106 +9,86 @@ type Props = {
   setFeatures: React.Dispatch<
     React.SetStateAction<Feature[]>
   >;
+
+  isEditable?: boolean;
 };
 
 export default function FeaturesSection({
   features,
   setFeatures,
+  isEditable = true,
 }: Props) {
 
-  const updateFeature = (
-    index: number,
-    field: "title" | "description",
-    value: string
-  ) => {
-
-    const updatedFeatures = [...features];
-
-    updatedFeatures[index][field] = value;
-
-    setFeatures(updatedFeatures);
-  };
-
-  const addFeature = () => {
-    setFeatures([
-      ...features,
-      {
-        title: "New Feature",
-        description:
-          "Describe your feature here.",
-      },
-    ]);
-  };
-
-  const removeFeature = (index: number) => {
-    const updatedFeatures =
-      features.filter(
-        (_, i) => i !== index
-      );
-
-    setFeatures(updatedFeatures);
-  };
-
   return (
-    <div className="bg-white p-6 sm:p-10 lg:p-16 border-t">
+    <div className="p-6 sm:p-10 bg-white">
 
-      <div className="flex items-center justify-between gap-4 flex-wrap">
+      <h2 className="text-3xl font-bold mb-8">
+        Features
+      </h2>
 
-        <h2 className="text-3xl sm:text-4xl font-bold">
-          Features
-        </h2>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-        <button
-          onClick={addFeature}
-          className="bg-black text-white px-5 py-2 rounded-xl"
-        >
-          Add Feature
-        </button>
-      </div>
+        {features.map(
+          (feature, index) => (
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
-
-        {features.map((feature, index) => (
-          <div
-            key={index}
-            className="p-6 rounded-2xl shadow-md border bg-gray-50"
-          >
-
-            <input
-              type="text"
-              value={feature.title}
-              onChange={(e) =>
-                updateFeature(
-                  index,
-                  "title",
-                  e.target.value
-                )
-              }
-              className="text-xl font-semibold w-full outline-none bg-transparent"
-            />
-
-            <textarea
-              value={feature.description}
-              onChange={(e) =>
-                updateFeature(
-                  index,
-                  "description",
-                  e.target.value
-                )
-              }
-              className="mt-3 text-gray-600 w-full outline-none resize-none bg-transparent"
-            />
-
-            <button
-              onClick={() =>
-                removeFeature(index)
-              }
-              className="mt-4 bg-red-500 hover:bg-red-600 transition text-white px-4 py-2 rounded-lg"
+            <div
+              key={index}
+              className="p-6 rounded-2xl border shadow-sm"
             >
-              Remove
-            </button>
-          </div>
-        ))}
+
+              {isEditable ? (
+                <input
+                  type="text"
+                  value={feature.title}
+                  onChange={(e) => {
+
+                    const updated =
+                      [...features];
+
+                    updated[index].title =
+                      e.target.value;
+
+                    setFeatures(
+                      updated
+                    );
+                  }}
+                  className="text-xl font-bold w-full outline-none"
+                />
+              ) : (
+                <h3 className="text-xl font-bold">
+                  {feature.title}
+                </h3>
+              )}
+
+              {isEditable ? (
+                <textarea
+                  value={
+                    feature.description
+                  }
+                  onChange={(e) => {
+
+                    const updated =
+                      [...features];
+
+                    updated[index].description =
+                      e.target.value;
+
+                    setFeatures(
+                      updated
+                    );
+                  }}
+                  className="mt-4 w-full outline-none resize-none"
+                />
+              ) : (
+                <p className="mt-4 text-gray-600">
+                  {
+                    feature.description
+                  }
+                </p>
+              )}
+            </div>
+          )
+        )}
       </div>
     </div>
   );
